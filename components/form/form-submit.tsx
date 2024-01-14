@@ -16,7 +16,7 @@ export function FormSubmit({
   children,
   disabled,
   className,
-  variant,
+  variant = "primary",
 }: FormSubmitProps) {
   const { pending } = useFormStatus();
 
