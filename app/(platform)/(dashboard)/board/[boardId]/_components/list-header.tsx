@@ -13,9 +13,10 @@ import { ListOptions } from "./list-options";
 
 type Props = {
   data: List;
+  onAddCard: () => void;
 };
 
-export function ListHeader({ data }: Props) {
+export function ListHeader({ data, onAddCard }: Props) {
   const [title, setTitle] = useState(data.title);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -103,7 +104,7 @@ export function ListHeader({ data }: Props) {
           {title}
         </div>
       )}
-      <ListOptions onAddCard={() => {}} data={data} />
+      <ListOptions onAddCard={onAddCard} data={data} />
     </div>
   );
 }
