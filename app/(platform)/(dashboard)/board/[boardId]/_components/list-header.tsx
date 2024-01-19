@@ -3,17 +3,19 @@
 import { toast } from "sonner";
 import { List } from "@prisma/client";
 import { useEventListener } from "usehooks-ts";
-import { useState, useRef, ElementRef, useLayoutEffect } from "react";
+import { useState, useRef, ElementRef } from "react";
 
 import { useAction } from "@/hooks/use-action";
 import { updateList } from "@/actions/update-list";
 import { FormInput } from "@/components/form/form-input";
 
-interface ListHeaderProps {
-  data: List;
-}
+import { ListOptions } from "./list-options";
 
-export function ListHeader({ data }: ListHeaderProps) {
+type Props = {
+  data: List;
+};
+
+export function ListHeader({ data }: Props) {
   const [title, setTitle] = useState(data.title);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -22,14 +24,11 @@ export function ListHeader({ data }: ListHeaderProps) {
 
   const enableEditing = () => {
     setIsEditing(true);
-  };
-
-  useLayoutEffect(() => {
-    if (isEditing) {
+    setTimeout(() => {
       inputRef.current?.focus();
       inputRef.current?.select();
-    }
-  }, [isEditing]);
+    });
+  };
 
   const disableEditing = () => {
     setIsEditing(false);
@@ -78,12 +77,13 @@ export function ListHeader({ data }: ListHeaderProps) {
     <div className="pt-2 px-2 text-sm font-semibold flex justify-between items-start- gap-x-2">
       {isEditing ? (
         <form ref={formRef} action={handleSubmit} className="flex-1 px-[2px]">
-          <input hidden id="id" name="id" defaultValue={data.id} />
+          <input hidden readOnly id="id" name="id" value={data.id} />
           <input
             hidden
+            readOnly
             id="boardId"
             name="boardId"
-            defaultValue={data.boardId}
+            value={data.boardId}
           />
           <FormInput
             ref={inputRef}
@@ -91,8 +91,7 @@ export function ListHeader({ data }: ListHeaderProps) {
             id="title"
             placeholder="Enter list title.."
             defaultValue={title}
-            className="text-sm px-[7px] py-1 h-7 font-medium border-transparent hover:border-input
-              focus:border-input transition truncate bg-transparent focus:bg-white"
+            className="text-sm px-[7px] py-1 h-7 font-medium border-transparent hover:border-input focus:border-input transition truncate bg-transparent focus:bg-white"
           />
           <button type="submit" hidden />
         </form>
@@ -104,6 +103,7 @@ export function ListHeader({ data }: ListHeaderProps) {
           {title}
         </div>
       )}
+      <ListOptions onAddCard={() => {}} data={data} />
     </div>
   );
 }
