@@ -21,7 +21,9 @@ export function ListItem({ data, index }: Props) {
   const [isEditing, setIsEditing] = useState(false);
 
   useLayoutEffect(() => {
-    textareaRef.current?.focus();
+    if (isEditing) {
+      textareaRef.current?.focus();
+    }
   }, [isEditing]);
 
   const disableEditing = () => {
@@ -42,7 +44,7 @@ export function ListItem({ data, index }: Props) {
         >
           <div
             {...provided.dragHandleProps}
-            className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2"
+            className="w-full max-h-full overflow-y-auto rounded-md  bg-[#f1f2f4] shadow-md pb-2"
           >
             <ListHeader onAddCard={enableEditing} data={data} />
             <Droppable droppableId={data.id} type="card">
