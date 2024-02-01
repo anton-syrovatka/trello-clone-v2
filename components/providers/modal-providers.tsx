@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { CardModal } from "@/components/modals/card-modal";
+import { CardModal } from '@/components/modals/card-modal';
+import { ProModal } from '../modals/card-modal/pro-modal';
 
 // Hydration errors protection
 // Only rendered on the client
@@ -20,6 +21,7 @@ export const ModalProvider = () => {
   return (
     <>
       <CardModal />
+      <ProModal />
     </>
   );
 };
