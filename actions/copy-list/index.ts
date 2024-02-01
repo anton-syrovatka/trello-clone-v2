@@ -2,7 +2,6 @@
 
 import { auth } from '@clerk/nextjs';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 import { db } from '@/lib/db';
 import { createSafeAction } from '@/lib/create-safe-action';
@@ -10,7 +9,7 @@ import { createSafeAction } from '@/lib/create-safe-action';
 import { CopyList } from './schema';
 import { InputType, ReturnType } from './types';
 import { createAuditLog } from '@/lib/create-audit-log';
-import { ACTION, ENTITY_TYPE } from '@prisma/client';
+import { ACTION, ENTITY_TYPE, List } from '@prisma/client';
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -22,23 +21,23 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   const { id, boardId } = data;
-  let list;
+  let list: List;
 
   try {
-    const listToCopy = await db.list.findUnique({
+    const listToCopy = (await db.list.findUnique({
       where: { id, boardId, board: { orgId } },
       include: { cards: true },
-    });
+    })) as List;
 
     if (!listToCopy) {
       return { error: 'List not found' };
     }
 
-    const lastList = await db.list.findFirst({
+    const lastList = (await db.list.findFirst({
       where: { boardId },
       orderBy: { order: 'desc' },
       select: { order: true },
-    });
+    })) as List;
 
     const newOrder = lastList ? lastList.order + 1 : 1;
 
