@@ -9,7 +9,8 @@ import { createSafeAction } from '@/lib/create-safe-action';
 import { CopyList } from './schema';
 import { InputType, ReturnType } from './types';
 import { createAuditLog } from '@/lib/create-audit-log';
-import { ACTION, ENTITY_TYPE, List } from '@prisma/client';
+import { ACTION, Card, ENTITY_TYPE } from '@prisma/client';
+import { ListWithCards } from '@/types';
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -21,23 +22,23 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   const { id, boardId } = data;
-  let list: List;
+  let list: ListWithCards;
 
   try {
     const listToCopy = (await db.list.findUnique({
       where: { id, boardId, board: { orgId } },
       include: { cards: true },
-    })) as List;
+    })) as ListWithCards;
 
     if (!listToCopy) {
       return { error: 'List not found' };
     }
 
-    const lastList = (await db.list.findFirst({
+    const lastList = await db.list.findFirst({
       where: { boardId },
       orderBy: { order: 'desc' },
       select: { order: true },
-    })) as List;
+    });
 
     const newOrder = lastList ? lastList.order + 1 : 1;
 
@@ -48,7 +49,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         order: newOrder,
         cards: {
           createMany: {
-            data: listToCopy.cards.map((card) => ({
+            data: listToCopy.cards.map((card: Card) => ({
               title: card.title,
               description: card.description,
               order: card.order,
