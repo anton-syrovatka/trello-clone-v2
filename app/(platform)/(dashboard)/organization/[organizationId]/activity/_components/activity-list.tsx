@@ -1,15 +1,16 @@
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { auth } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
-import { db } from "@/lib/db";
-import { ActivityItem } from "@/components/activity-item";
-import { Skeleton } from "@/components/ui/skeleton";
+import { db } from '@/lib/db';
+import { ActivityItem } from '@/components/activity-item';
+import { Skeleton } from '@/components/ui/skeleton';
+import { AuditLog } from '@prisma/client';
 
 export async function ActivityList() {
   const { orgId } = auth();
 
   if (!orgId) {
-    redirect("/select-org");
+    redirect('/select-org');
   }
 
   const auditLogs = await db.auditLog.findMany({
@@ -17,7 +18,7 @@ export async function ActivityList() {
       orgId,
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
   });
 
@@ -26,7 +27,7 @@ export async function ActivityList() {
       <p className="hidden last:block text-xs text-center text-muted-foreground">
         No activity found inside this organization
       </p>
-      {auditLogs.map((log) => (
+      {auditLogs.map((log: AuditLog) => (
         <ActivityItem key={log.id} data={log} />
       ))}
     </ol>
