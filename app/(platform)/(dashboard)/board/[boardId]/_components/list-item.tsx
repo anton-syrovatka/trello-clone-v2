@@ -5,11 +5,11 @@ import { Draggable, Droppable } from '@hello-pangea/dnd';
 
 import { cn } from '@/lib/utils';
 import { ListWithCards } from '@/types';
+import { Card } from '@prisma/client';
 
 import { CardForm } from './card-form';
 import { CardItem } from './card-item';
 import { ListHeader } from './list-header';
-import { Card } from '@prisma/client';
 
 type Props = {
   data: ListWithCards;

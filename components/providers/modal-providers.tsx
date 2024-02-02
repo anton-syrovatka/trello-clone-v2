@@ -7,7 +7,7 @@ import { ProModal } from '../modals/card-modal/pro-modal';
 
 // Hydration errors protection
 // Only rendered on the client
-export const ModalProvider = () => {
+export function ModalProvider() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -24,4 +24,4 @@ export const ModalProvider = () => {
       <ProModal />
     </>
   );
-};
+}

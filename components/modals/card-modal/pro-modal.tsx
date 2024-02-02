@@ -9,7 +9,7 @@ import { useAction } from '@/hooks/use-action';
 import { stripeRedirect } from '@/actions/stripe-redirect';
 import { toast } from 'sonner';
 
-export const ProModal = () => {
+export function ProModal() {
   const proModal = useProModal();
 
   const { execute, isLoading } = useAction(stripeRedirect, {
@@ -58,4 +58,4 @@ export const ProModal = () => {
       </DialogContent>
     </Dialog>
   );
-};
+}

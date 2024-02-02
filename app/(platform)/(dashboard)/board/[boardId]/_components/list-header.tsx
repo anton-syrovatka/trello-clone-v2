@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 'use client';
 
 import { toast } from 'sonner';
@@ -47,7 +49,7 @@ export function ListHeader({ data, onAddCard }: Props) {
   });
 
   const handleSubmit = (formData: FormData) => {
-    const title = formData.get('title') as string;
+    const dataTitle = formData.get('title') as string;
     const id = formData.get('id') as string;
     const boardId = formData.get('boardId') as string;
 
@@ -55,8 +57,8 @@ export function ListHeader({ data, onAddCard }: Props) {
       return disableEditing();
     }
 
-    execute({
-      title,
+    return execute({
+      title: dataTitle,
       id,
       boardId,
     });
@@ -97,6 +99,7 @@ export function ListHeader({ data, onAddCard }: Props) {
           <button type="submit" hidden />
         </form>
       ) : (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
           onClick={enableEditing}
           className="w-full text-sm px-2.5 py-1 h-7 font-medium border-transparent"

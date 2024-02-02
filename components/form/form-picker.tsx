@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 'use client';
 
 import Link from 'next/link';
@@ -17,10 +20,12 @@ interface FormPickerProps {
   errors?: Record<string, string[] | undefined>;
 }
 
-export const FormPicker = ({ id, errors }: FormPickerProps) => {
+export function FormPicker({ id, errors }: FormPickerProps) {
   const { pending } = useFormStatus();
 
+  // eslint-disable-next-line operator-linebreak
   const [images, setImages] =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     useState<Array<Record<string, any>>>(defaultImages);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImageId, setSelectedImageId] = useState(null);
@@ -38,6 +43,7 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
         });
 
         if (result && result.response) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const newImages = result.response as Array<Record<string, any>>;
           setImages(newImages);
         } else {
@@ -80,7 +86,6 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
               id={id}
               name={id}
               className="hidden"
-              // defaultChecked={selectedImageId === image.id}
               checked={selectedImageId === image.id}
               disabled={pending}
               value={`${image.id}|${image.urls.thumb}|${image.urls.full}|${image.links.html}|${image.user.name}`}
@@ -113,4 +118,4 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
       <FormErrors id="image" errors={errors} />
     </div>
   );
-};
+}

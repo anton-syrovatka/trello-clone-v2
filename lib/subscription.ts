@@ -1,3 +1,6 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { auth } from '@clerk/nextjs';
 
 import { db } from '@/lib/db';

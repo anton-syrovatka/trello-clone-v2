@@ -2,18 +2,16 @@
 
 import { auth, currentUser } from '@clerk/nextjs';
 import { revalidatePath } from 'next/cache';
-import { ACTION, ENTITY_TYPE } from '@prisma/client';
 
 import { db } from '@/lib/db';
 import { createSafeAction } from '@/lib/create-safe-action';
-
-import { StripeRedirect } from './schema';
-import { InputType, ReturnType } from './types';
-
 import { absoluteUrl } from '@/lib/utils';
 import { stripe } from '@/lib/stripe';
 
-const handler = async (data: InputType): Promise<ReturnType> => {
+import { StripeRedirect } from './schema';
+import { ReturnType } from './types';
+
+async function handler(): Promise<ReturnType> {
   const { userId, orgId } = auth();
   const user = await currentUser();
 
@@ -80,6 +78,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
   revalidatePath(`/organization/${orgId}`);
   return { data: url };
-};
+}
 
 export const stripeRedirect = createSafeAction(StripeRedirect, handler);

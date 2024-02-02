@@ -17,7 +17,7 @@ type Props = {
   id: string;
 };
 
-export const BoardOptions = ({ id }: Props) => {
+export function BoardOptions({ id }: Props) {
   const { execute, isLoading } = useAction(deleteBoard, {
     onError: (error) => {
       toast.error(error);
@@ -58,4 +58,4 @@ export const BoardOptions = ({ id }: Props) => {
       </PopoverContent>
     </Popover>
   );
-};
+}

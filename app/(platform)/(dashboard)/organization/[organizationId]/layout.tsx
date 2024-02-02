@@ -12,13 +12,13 @@ export async function generateMetadata() {
   };
 }
 
-const OrganizationIdLayout = ({ children }: PropsWithChildren) => {
+function OrganizationIdLayout({ children }: PropsWithChildren) {
   return (
     <>
       <OrgControl />
       {children}
     </>
   );
-};
+}
 
 export default OrganizationIdLayout;

@@ -14,6 +14,13 @@ type Props = {
 };
 
 export function BoardTitleForm({ data }: Props) {
+  const [title, setTitle] = useState(data.title);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const disableEditing = () => {
+    setIsEditing(false);
+  };
+
   const { execute } = useAction(updateBoard, {
     onSuccess: (data) => {
       toast.success(`Board "${data.title}" updated!`);
@@ -28,9 +35,6 @@ export function BoardTitleForm({ data }: Props) {
   const formRef = useRef<ElementRef<'form'>>(null);
   const inputRef = useRef<ElementRef<'input'>>(null);
 
-  const [title, setTitle] = useState(data.title);
-  const [isEditing, setIsEditing] = useState(false);
-
   const enableEditing = () => {
     setIsEditing(true);
     setTimeout(() => {
@@ -39,15 +43,11 @@ export function BoardTitleForm({ data }: Props) {
     });
   };
 
-  const disableEditing = () => {
-    setIsEditing(false);
-  };
-
   const onSubmit = (formData: FormData) => {
-    const title = formData.get('title') as string;
+    const dataTitle = formData.get('title') as string;
 
     execute({
-      title,
+      title: dataTitle,
       id: data.id,
     });
   };

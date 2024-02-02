@@ -30,7 +30,7 @@ export async function createAuditLog(props: Props) {
         action,
         userId: user.id,
         userImage: user?.imageUrl,
-        userName: user?.firstName + ' ' + user?.lastName,
+        userName: `${user?.firstName} ${user?.lastName}`,
       },
     });
   } catch (error) {

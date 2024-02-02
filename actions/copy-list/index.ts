@@ -4,13 +4,13 @@ import { auth } from '@clerk/nextjs';
 import { revalidatePath } from 'next/cache';
 
 import { db } from '@/lib/db';
+import { ListWithCards } from '@/types';
+import { createAuditLog } from '@/lib/create-audit-log';
 import { createSafeAction } from '@/lib/create-safe-action';
+import { ACTION, Card, ENTITY_TYPE } from '@prisma/client';
 
 import { CopyList } from './schema';
 import { InputType, ReturnType } from './types';
-import { createAuditLog } from '@/lib/create-audit-log';
-import { ACTION, Card, ENTITY_TYPE } from '@prisma/client';
-import { ListWithCards } from '@/types';
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();

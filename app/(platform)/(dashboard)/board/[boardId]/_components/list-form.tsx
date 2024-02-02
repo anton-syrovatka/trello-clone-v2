@@ -14,7 +14,7 @@ import { FormSubmit } from '@/components/form/form-submit';
 
 import { ListWrapper } from './list-wrapper';
 
-export const ListForm = () => {
+export function ListForm() {
   const router = useRouter();
   const params = useParams();
 
@@ -105,6 +105,7 @@ export const ListForm = () => {
   return (
     <ListWrapper>
       <button
+        type="button"
         onClick={enableEditing}
         className="w-full rounded-md bg-white/80 hover:bg-white/50 transition p-3 flex
           items-center font-medium text-sm"
@@ -114,4 +115,4 @@ export const ListForm = () => {
       </button>
     </ListWrapper>
   );
-};
+}

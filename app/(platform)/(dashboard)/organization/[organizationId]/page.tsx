@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Separator } from '@/components/ui/separator';
+import { checkSubscription } from '@/lib/subscription';
 
 import { Info } from './_components/info';
 import { BoardList } from './_components/board-list';
-import { checkSubscription } from '@/lib/subscription';
 
 async function OrganizationIdPage() {
   const isPro = await checkSubscription();

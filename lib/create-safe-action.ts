@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import { z } from 'zod';
 
 export type FieldErrors<T> = {

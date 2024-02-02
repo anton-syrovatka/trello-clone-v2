@@ -10,7 +10,7 @@ interface ActivityProps {
   items: AuditLog[];
 }
 
-export const Activity = ({ items }: ActivityProps) => {
+export function Activity({ items }: ActivityProps) {
   return (
     <div className="flex items-start gap-x-3 w-full">
       <ActivityIcon className="h-5 w-5 mt-0.5 text-neutral-700" />
@@ -24,7 +24,7 @@ export const Activity = ({ items }: ActivityProps) => {
       </div>
     </div>
   );
-};
+}
 
 Activity.Skeleton = function ActivitySkeleton() {
   return (

@@ -1,11 +1,10 @@
 import { Suspense } from 'react';
 
 import { Separator } from '@/components/ui/separator';
+import { checkSubscription } from '@/lib/subscription';
 
 import { Info } from '../_components/info';
-
 import { ActivityList } from './_components/activity-list';
-import { checkSubscription } from '@/lib/subscription';
 
 async function ActivityPage() {
   const isPro = await checkSubscription();

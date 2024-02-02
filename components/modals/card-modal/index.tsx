@@ -6,11 +6,11 @@ import { CardWithList } from '@/types';
 import { fetcher } from '@/lib/fetcher';
 import { useCardModal } from '@/hooks/use-card-modal';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { AuditLog } from '@prisma/client';
 
 import { Header } from './header';
 import { Description } from './description';
 import { Actions } from './actions';
-import { AuditLog } from '@prisma/client';
 import { Activity } from './activity';
 
 export function CardModal() {

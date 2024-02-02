@@ -27,12 +27,12 @@ interface FormPopoverProps {
   sideOffset?: number;
 }
 
-export const FormPopover = ({
+export function FormPopover({
   children,
   side = 'bottom',
   align,
   sideOffset = 0,
-}: FormPopoverProps) => {
+}: FormPopoverProps) {
   const proModal = useProModal();
   const router = useRouter();
   const closeRef = useRef<ElementRef<'button'>>(null);
@@ -91,4 +91,4 @@ export const FormPopover = ({
       </PopoverContent>
     </Popover>
   );
-};
+}

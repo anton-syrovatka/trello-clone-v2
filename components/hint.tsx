@@ -12,12 +12,12 @@ interface HintProps {
   sideOffset?: number;
 }
 
-export const Hint = ({
+export function Hint({
   children,
   description,
   side = 'bottom',
   sideOffset = 0,
-}: HintProps) => {
+}: HintProps) {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
@@ -32,4 +32,4 @@ export const Hint = ({
       </Tooltip>
     </TooltipProvider>
   );
-};
+}

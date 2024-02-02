@@ -1,16 +1,18 @@
+/* eslint-disable no-param-reassign */
+
 'use client';
 
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { ListWithCards } from '@/types';
+import { Card } from '@prisma/client';
 
 import { useAction } from '@/hooks/use-action';
 import { updateListOrder } from '@/actions/update-list-order';
 import { updateCardOrder } from '@/actions/update-card-order';
 import { ListForm } from './list-form';
 import { ListItem } from './list-item';
-import { Card } from '@prisma/client';
 
 type Props = {
   data: ListWithCards[];
@@ -50,6 +52,7 @@ export function ListContainer({ data, boardId }: Props) {
     setOrderedData(data);
   }, [data]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onDragEnd = (result: any) => {
     const { destination, source, type } = result;
 
@@ -59,6 +62,7 @@ export function ListContainer({ data, boardId }: Props) {
 
     // if dropped in the same position
     if (
+      // eslint-disable-next-line operator-linebreak
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
@@ -77,7 +81,7 @@ export function ListContainer({ data, boardId }: Props) {
 
     // User moves a card
     if (type === 'card') {
-      let newOrderedData = [...orderedData];
+      const newOrderedData = [...orderedData];
 
       // Source and destination list
       const sourceList = newOrderedData.find(
@@ -117,7 +121,7 @@ export function ListContainer({ data, boardId }: Props) {
 
         setOrderedData(newOrderedData);
         executeUpdateCardOrder({
-          boardId: boardId,
+          boardId,
           items: reorderedCards,
         });
         // User moves the card to another list
@@ -142,7 +146,7 @@ export function ListContainer({ data, boardId }: Props) {
 
         setOrderedData(newOrderedData);
         executeUpdateCardOrder({
-          boardId: boardId,
+          boardId,
           items: destList.cards,
         });
       }
@@ -158,9 +162,9 @@ export function ListContainer({ data, boardId }: Props) {
             ref={provided.innerRef}
             className="flex gap-x-3 h-full"
           >
-            {orderedData.map((list, index) => {
-              return <ListItem key={list.id} index={index} data={list} />;
-            })}
+            {orderedData.map((list, index) => (
+              <ListItem key={list.id} index={index} data={list} />
+            ))}
             {provided.placeholder}
             <ListForm />
             <div className="flex-shrink-0 w-1" />

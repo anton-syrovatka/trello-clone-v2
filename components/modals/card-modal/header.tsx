@@ -16,9 +16,12 @@ interface HeaderProps {
   data: CardWithList;
 }
 
-export const Header = ({ data }: HeaderProps) => {
+export function Header({ data }: HeaderProps) {
   const queryClient = useQueryClient();
   const params = useParams();
+
+  const inputRef = useRef<ElementRef<'input'>>(null);
+  const [title, setTitle] = useState(data.title);
 
   const { execute } = useAction(updateCard, {
     onSuccess: (data) => {
@@ -38,16 +41,12 @@ export const Header = ({ data }: HeaderProps) => {
     },
   });
 
-  const inputRef = useRef<ElementRef<'input'>>(null);
-
-  const [title, setTitle] = useState(data.title);
-
   const onBlur = () => {
     inputRef.current?.form?.requestSubmit();
   };
 
   const onSubmit = (formData: FormData) => {
-    const title = formData.get('title') as string;
+    const dataTitle = formData.get('title') as string;
     const boardId = params.boardId as string;
 
     if (title === data.title) {
@@ -55,7 +54,7 @@ export const Header = ({ data }: HeaderProps) => {
     }
 
     execute({
-      title,
+      title: dataTitle,
       boardId,
       id: data.id,
     });
@@ -77,12 +76,13 @@ export const Header = ({ data }: HeaderProps) => {
           />
         </form>
         <p className="text-sm text-muted-foreground">
-          in list <span className="underline">{data.list.title}</span>
+          {'in list '}
+          <span className="underline">{data.list.title}</span>
         </p>
       </div>
     </div>
   );
-};
+}
 
 Header.Skeleton = function HeaderSkeleton() {
   return (
