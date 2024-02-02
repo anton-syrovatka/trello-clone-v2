@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { toast } from "sonner";
-import { Plus, X } from "lucide-react";
-import { forwardRef, useRef, ElementRef, KeyboardEventHandler } from "react";
-import { useParams } from "next/navigation";
-import { useOnClickOutside, useEventListener } from "usehooks-ts";
+import { toast } from 'sonner';
+import { Plus, X } from 'lucide-react';
+import { forwardRef, useRef, ElementRef, KeyboardEventHandler } from 'react';
+import { useParams } from 'next/navigation';
+import { useOnClickOutside, useEventListener } from 'usehooks-ts';
 
-import { useAction } from "@/hooks/use-action";
-import { createCard } from "@/actions/create-card";
-import { Button } from "@/components/ui/button";
-import { FormSubmit } from "@/components/form/form-submit";
-import { FormTextarea } from "@/components/form/form-textarea";
+import { useAction } from '@/hooks/use-action';
+import { createCard } from '@/actions/create-card';
+import { Button } from '@/components/ui/button';
+import { FormSubmit } from '@/components/form/form-submit';
+import { FormTextarea } from '@/components/form/form-textarea';
 
 type Props = {
   listId: string;
@@ -22,7 +22,7 @@ type Props = {
 export const CardForm = forwardRef<HTMLTextAreaElement, Props>(
   ({ listId, enableEditing, disableEditing, isEditing }, ref) => {
     const params = useParams();
-    const formRef = useRef<ElementRef<"form">>(null);
+    const formRef = useRef<ElementRef<'form'>>(null);
 
     const { execute, fieldErrors } = useAction(createCard, {
       onSuccess: (data) => {
@@ -35,26 +35,26 @@ export const CardForm = forwardRef<HTMLTextAreaElement, Props>(
     });
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         disableEditing();
       }
     };
 
     useOnClickOutside(formRef, disableEditing);
-    useEventListener("keydown", onKeyDown);
+    useEventListener('keydown', onKeyDown);
 
     const onTextareaKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = (
       e
     ) => {
-      if (e.key === "Enter" && !e.shiftKey) {
+      if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         formRef.current?.requestSubmit();
       }
     };
 
     const onSubmit = (formData: FormData) => {
-      const title = formData.get("title") as string;
-      const listId = formData.get("listId") as string;
+      const title = formData.get('title') as string;
+      const listId = formData.get('listId') as string;
       const boardId = params.boardId as string;
 
       execute({ title, listId, boardId });
@@ -103,4 +103,4 @@ export const CardForm = forwardRef<HTMLTextAreaElement, Props>(
   }
 );
 
-CardForm.displayName = "CardForm";
+CardForm.displayName = 'CardForm';

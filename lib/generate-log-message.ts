@@ -1,15 +1,15 @@
-import { ACTION, AuditLog } from "@prisma/client";
+import { ACTION, AuditLog } from '@prisma/client';
 
 const getActionType = (action: ACTION) => {
   switch (action) {
     case ACTION.CREATE:
-      return "created";
+      return 'created';
     case ACTION.UPDATE:
-      return "updated";
+      return 'updated';
     case ACTION.DELETE:
-      return "deleted";
+      return 'deleted';
     default:
-      return "unknown action";
+      return 'unknown action';
   }
 };
 

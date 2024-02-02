@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { Check, Loader2 } from "lucide-react";
-import { useFormStatus } from "react-dom";
-import { useEffect, useState } from "react";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Check, Loader2 } from 'lucide-react';
+import { useFormStatus } from 'react-dom';
+import { useEffect, useState } from 'react';
 
-import { cn } from "@/lib/utils";
-import { unsplash } from "@/lib/unsplash";
-import { defaultImages } from "@/constants/images";
+import { cn } from '@/lib/utils';
+import { unsplash } from '@/lib/unsplash';
+import { defaultImages } from '@/constants/images';
 
-import { FormErrors } from "./form-errors";
+import { FormErrors } from './form-errors';
 
 interface FormPickerProps {
   id: string;
@@ -26,14 +26,14 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
   const [selectedImageId, setSelectedImageId] = useState(null);
 
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_UNSPLASH_ENABLED !== "true") {
+    if (process.env.NEXT_PUBLIC_UNSPLASH_ENABLED !== 'true') {
       setIsLoading(false);
       return;
     }
     (async () => {
       try {
         const result = await unsplash.photos.getRandom({
-          collectionIds: ["317099"],
+          collectionIds: ['317099'],
           count: 9,
         });
 
@@ -41,7 +41,7 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
           const newImages = result.response as Array<Record<string, any>>;
           setImages(newImages);
         } else {
-          console.error("Failed to get images from Unsplash");
+          console.error('Failed to get images from Unsplash');
         }
       } catch (error) {
         console.log(error);
@@ -67,8 +67,8 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
           <div
             key={image.id}
             className={cn(
-              "cursor-pointer relative aspect-video group hover:opacity-75 transition bg-muted",
-              pending && "opacity-50 hover:opacity-50 cursor-auto"
+              'cursor-pointer relative aspect-video group hover:opacity-75 transition bg-muted',
+              pending && 'opacity-50 hover:opacity-50 cursor-auto'
             )}
             onClick={() => {
               if (pending) return;

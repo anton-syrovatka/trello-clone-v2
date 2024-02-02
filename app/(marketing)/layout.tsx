@@ -1,6 +1,6 @@
-import React, { PropsWithChildren } from "react";
-import { Navbar } from "./_components/navbar";
-import { Footer } from "./_components/footer";
+import React, { PropsWithChildren } from 'react';
+import { Navbar } from './_components/navbar';
+import { Footer } from './_components/footer';
 
 function MarketingLayout({ children }: PropsWithChildren) {
   return (

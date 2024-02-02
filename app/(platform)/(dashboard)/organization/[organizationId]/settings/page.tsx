@@ -1,4 +1,4 @@
-import { OrganizationProfile } from "@clerk/nextjs";
+import { OrganizationProfile } from '@clerk/nextjs';
 
 function SettingsPage() {
   return (
@@ -7,13 +7,13 @@ function SettingsPage() {
         appearance={{
           elements: {
             rootBox: {
-              boxShadow: "none",
-              width: "100%",
+              boxShadow: 'none',
+              width: '100%',
             },
             card: {
-              border: "1px solid #e5e5e5",
-              boxShadow: "none",
-              width: "100%",
+              border: '1px solid #e5e5e5',
+              boxShadow: 'none',
+              width: '100%',
             },
           },
         }}

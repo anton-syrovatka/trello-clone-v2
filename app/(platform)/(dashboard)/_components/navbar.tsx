@@ -1,11 +1,11 @@
-import { Plus } from "lucide-react";
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import { Plus } from 'lucide-react';
+import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 
-import { Logo } from "@/components/logo";
-import { Button } from "@/components/ui/button";
-import { FormPopover } from "@/components/form/form-popover";
+import { Logo } from '@/components/logo';
+import { Button } from '@/components/ui/button';
+import { FormPopover } from '@/components/form/form-popover';
 
-import { MobileSidebar } from "./mobile-sidebar";
+import { MobileSidebar } from './mobile-sidebar';
 
 export const Navbar = () => {
   return (
@@ -43,9 +43,9 @@ export const Navbar = () => {
           appearance={{
             elements: {
               rootBox: {
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               },
             },
           }}

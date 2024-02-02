@@ -1,9 +1,9 @@
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { auth } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
-import { ListContainer } from "./_components/list-container";
+import { ListContainer } from './_components/list-container';
 
 type Props = {
   params: {
@@ -15,7 +15,7 @@ async function BoardIdPage({ params }: Props) {
   const { orgId } = auth();
 
   if (!orgId) {
-    redirect("/select-org");
+    redirect('/select-org');
   }
 
   const lists = await db.list.findMany({
@@ -28,12 +28,12 @@ async function BoardIdPage({ params }: Props) {
     include: {
       cards: {
         orderBy: {
-          order: "asc",
+          order: 'asc',
         },
       },
     },
     orderBy: {
-      order: "asc",
+      order: 'asc',
     },
   });
 

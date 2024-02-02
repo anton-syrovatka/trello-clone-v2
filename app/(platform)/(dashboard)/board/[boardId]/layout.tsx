@@ -1,10 +1,10 @@
-import { auth } from "@clerk/nextjs";
-import { notFound, redirect } from "next/navigation";
+import { auth } from '@clerk/nextjs';
+import { notFound, redirect } from 'next/navigation';
 
-import { db } from "@/lib/db";
-import { PropsWithChildren } from "react";
+import { db } from '@/lib/db';
+import { PropsWithChildren } from 'react';
 
-import { BoardNavbar } from "./_components/board-navbar";
+import { BoardNavbar } from './_components/board-navbar';
 
 export async function generateMetadata({
   params,
@@ -15,7 +15,7 @@ export async function generateMetadata({
 
   if (!orgId) {
     return {
-      title: "Board",
+      title: 'Board',
     };
   }
 
@@ -27,7 +27,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: board?.title || "Board",
+    title: board?.title || 'Board',
   };
 }
 
@@ -39,7 +39,7 @@ async function BoardIdLayout({ children, params }: PropsWithChildren<Props>) {
   const { orgId } = auth();
 
   if (!orgId) {
-    redirect("/select-org");
+    redirect('/select-org');
   }
 
   const board = await db.board.findUnique({

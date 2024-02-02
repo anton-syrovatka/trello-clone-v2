@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { toast } from "sonner";
-import { Plus, X } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { useState, useRef, ElementRef, useLayoutEffect } from "react";
-import { useEventListener, useOnClickOutside } from "usehooks-ts";
+import { toast } from 'sonner';
+import { Plus, X } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { useState, useRef, ElementRef, useLayoutEffect } from 'react';
+import { useEventListener, useOnClickOutside } from 'usehooks-ts';
 
-import { useAction } from "@/hooks/use-action";
-import { Button } from "@/components/ui/button";
-import { createList } from "@/actions/create-list";
-import { FormInput } from "@/components/form/form-input";
-import { FormSubmit } from "@/components/form/form-submit";
+import { useAction } from '@/hooks/use-action';
+import { Button } from '@/components/ui/button';
+import { createList } from '@/actions/create-list';
+import { FormInput } from '@/components/form/form-input';
+import { FormSubmit } from '@/components/form/form-submit';
 
-import { ListWrapper } from "./list-wrapper";
+import { ListWrapper } from './list-wrapper';
 
 export const ListForm = () => {
   const router = useRouter();
   const params = useParams();
 
-  const formRef = useRef<ElementRef<"form">>(null);
-  const inputRef = useRef<ElementRef<"input">>(null);
+  const formRef = useRef<ElementRef<'form'>>(null);
+  const inputRef = useRef<ElementRef<'input'>>(null);
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -56,17 +56,17 @@ export const ListForm = () => {
   });
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "Escape") {
+    if (e.key === 'Escape') {
       disableEditing();
     }
   };
 
-  useEventListener("keydown", onKeyDown);
+  useEventListener('keydown', onKeyDown);
   useOnClickOutside(formRef, disableEditing);
 
   const onSubmit = (formData: FormData) => {
-    const title = formData.get("title") as string;
-    const boardId = formData.get("boardId") as string;
+    const title = formData.get('title') as string;
+    const boardId = formData.get('boardId') as string;
 
     execute({
       title,

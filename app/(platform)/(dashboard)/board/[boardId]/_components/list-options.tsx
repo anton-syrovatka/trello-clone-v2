@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { toast } from "sonner";
-import { List } from "@prisma/client";
-import { ElementRef, useRef } from "react";
-import { MoreHorizontal, X } from "lucide-react";
+import { toast } from 'sonner';
+import { List } from '@prisma/client';
+import { ElementRef, useRef } from 'react';
+import { MoreHorizontal, X } from 'lucide-react';
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
   PopoverClose,
-} from "@/components/ui/popover";
-import { useAction } from "@/hooks/use-action";
-import { Button } from "@/components/ui/button";
-import { copyList } from "@/actions/copy-list";
-import { deleteList } from "@/actions/delete-list";
-import { FormSubmit } from "@/components/form/form-submit";
-import { Separator } from "@/components/ui/separator";
+} from '@/components/ui/popover';
+import { useAction } from '@/hooks/use-action';
+import { Button } from '@/components/ui/button';
+import { copyList } from '@/actions/copy-list';
+import { deleteList } from '@/actions/delete-list';
+import { FormSubmit } from '@/components/form/form-submit';
+import { Separator } from '@/components/ui/separator';
 
 type Props = {
   data: List;
@@ -24,7 +24,7 @@ type Props = {
 };
 
 export function ListOptions({ data, onAddCard }: Props) {
-  const closeRef = useRef<ElementRef<"button">>(null);
+  const closeRef = useRef<ElementRef<'button'>>(null);
 
   const { execute: executeDelete } = useAction(deleteList, {
     onSuccess: (data) => {
@@ -47,15 +47,15 @@ export function ListOptions({ data, onAddCard }: Props) {
   });
 
   const onDelete = (formData: FormData) => {
-    const id = formData.get("id") as string;
-    const boardId = formData.get("boardId") as string;
+    const id = formData.get('id') as string;
+    const boardId = formData.get('boardId') as string;
 
     executeDelete({ id, boardId });
   };
 
   const onCopy = (formData: FormData) => {
-    const id = formData.get("id") as string;
-    const boardId = formData.get("boardId") as string;
+    const id = formData.get('id') as string;
+    const boardId = formData.get('boardId') as string;
 
     executeCopy({ id, boardId });
   };

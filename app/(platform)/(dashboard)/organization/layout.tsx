@@ -1,5 +1,5 @@
-import { PropsWithChildren } from "react";
-import { Sidebar } from "../_components/sidebar";
+import { PropsWithChildren } from 'react';
+import { Sidebar } from '../_components/sidebar';
 
 function OrganizationLayout({ children }: PropsWithChildren) {
   return (

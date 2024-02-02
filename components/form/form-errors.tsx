@@ -1,4 +1,4 @@
-import { XCircle } from "lucide-react";
+import { XCircle } from 'lucide-react';
 
 interface FormErrorsProps {
   id: string;

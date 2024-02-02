@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { toast } from "sonner";
-import { MoreHorizontal, X } from "lucide-react";
+import { toast } from 'sonner';
+import { MoreHorizontal, X } from 'lucide-react';
 
-import { deleteBoard } from "@/actions/delete-board";
-import { useAction } from "@/hooks/use-action";
-import { Button } from "@/components/ui/button";
+import { deleteBoard } from '@/actions/delete-board';
+import { useAction } from '@/hooks/use-action';
+import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from '@/components/ui/popover';
 
 type Props = {
   id: string;

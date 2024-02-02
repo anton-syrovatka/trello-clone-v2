@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { toast } from "sonner";
-import { Copy, Trash } from "lucide-react";
-import { useParams } from "next/navigation";
+import { toast } from 'sonner';
+import { Copy, Trash } from 'lucide-react';
+import { useParams } from 'next/navigation';
 
-import { CardWithList } from "@/types";
-import { useAction } from "@/hooks/use-action";
-import { copyCard } from "@/actions/copy-card";
-import { Button } from "@/components/ui/button";
-import { deleteCard } from "@/actions/delete-card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useCardModal } from "@/hooks/use-card-modal";
+import { CardWithList } from '@/types';
+import { useAction } from '@/hooks/use-action';
+import { copyCard } from '@/actions/copy-card';
+import { Button } from '@/components/ui/button';
+import { deleteCard } from '@/actions/delete-card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useCardModal } from '@/hooks/use-card-modal';
 
 type Props = {
   data: CardWithList;
