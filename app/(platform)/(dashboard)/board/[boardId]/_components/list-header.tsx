@@ -1,11 +1,9 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-
 'use client';
 
 import { toast } from 'sonner';
 import { List } from '@prisma/client';
 import { useEventListener } from 'usehooks-ts';
-import { useState, useRef, ElementRef } from 'react';
+import { useState, useRef, ElementRef, KeyboardEventHandler } from 'react';
 
 import { useAction } from '@/hooks/use-action';
 import { updateList } from '@/actions/update-list';
@@ -68,6 +66,13 @@ export function ListHeader({ data, onAddCard }: Props) {
     formRef.current?.requestSubmit();
   };
 
+  const enableOnEnterEditing: KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      enableEditing();
+    }
+  };
+
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       formRef.current?.requestSubmit();
@@ -94,13 +99,17 @@ export function ListHeader({ data, onAddCard }: Props) {
             id="title"
             placeholder="Enter list title.."
             defaultValue={title}
-            className="text-sm px-[7px] py-1 h-7 font-medium border-transparent hover:border-input focus:border-input transition truncate bg-transparent focus:bg-white"
+            className="text-sm px-[7px] py-1 h-7 font-medium border-transparent
+              hover:border-input focus:border-input transition truncate bg-transparent
+              focus:bg-white"
           />
           <button type="submit" hidden />
         </form>
       ) : (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
+          role="button"
+          tabIndex={0}
+          onKeyDown={enableOnEnterEditing}
           onClick={enableEditing}
           className="w-full text-sm px-2.5 py-1 h-7 font-medium border-transparent"
         >

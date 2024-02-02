@@ -1,10 +1,8 @@
-/* eslint-disable no-param-reassign */
-
 'use client';
 
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
-import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import { DragDropContext, DropResult, Droppable } from '@hello-pangea/dnd';
 import { ListWithCards } from '@/types';
 import { Card } from '@prisma/client';
 
@@ -52,20 +50,18 @@ export function ListContainer({ data, boardId }: Props) {
     setOrderedData(data);
   }, [data]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onDragEnd = (result: any) => {
+  const onDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
 
     if (!destination) {
       return;
     }
 
+    const isIdEqual = destination.droppableId === source.droppableId;
+    const isIndexEqual = destination.index === source.index;
+
     // if dropped in the same position
-    if (
-      // eslint-disable-next-line operator-linebreak
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
+    if (isIdEqual && isIndexEqual) {
       return;
     }
 
@@ -107,15 +103,16 @@ export function ListContainer({ data, boardId }: Props) {
 
       // Moving the card in the same list
       if (source.droppableId === destination.droppableId) {
-        const reorderedCards = reorder(
+        let reorderedCards = reorder(
           sourceList.cards,
           source.index,
           destination.index
         ) as Card[];
 
-        reorderedCards.forEach((card: Card, idx) => {
-          card.order = idx;
-        });
+        reorderedCards = reorderedCards.map((card, index) => ({
+          ...card,
+          order: index,
+        }));
 
         sourceList.cards = reorderedCards;
 
@@ -135,14 +132,16 @@ export function ListContainer({ data, boardId }: Props) {
         // Add card to the destination list
         destList.cards.splice(destination.index, 0, movedCard);
 
-        sourceList.cards.forEach((card: Card, idx: number) => {
-          card.order = idx;
-        });
+        sourceList.cards = sourceList.cards.map((card, index) => ({
+          ...card,
+          order: index,
+        }));
 
         // Update the order for each card in the destination list
-        destList.cards.forEach((card: Card, idx: number) => {
-          card.order = idx;
-        });
+        destList.cards = destList.cards.map((card, index) => ({
+          ...card,
+          order: index,
+        }));
 
         setOrderedData(newOrderedData);
         executeUpdateCardOrder({

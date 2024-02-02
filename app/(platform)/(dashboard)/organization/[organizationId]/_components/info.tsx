@@ -17,19 +17,26 @@ export function Info({ isPro }: Props) {
     return <Info.Skeleton />;
   }
 
+  if (!organization) {
+    return (
+      <div className="flex items-center h-[60px]">
+        <span>Organization Info is not found.</span>
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center gap-x-4">
       <div className="w-[60px] h-[60px] relative">
         <Image
           fill
-          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-          src={organization?.imageUrl!}
+          src={organization.imageUrl}
           alt="Organization"
           className="rounded-md object-cover"
         />
       </div>
       <div className="space-y-1">
-        <p className="font-semibold text-xl">{organization?.name}</p>
+        <p className="font-semibold text-xl">{organization.name}</p>
         <div className="flex items-center text-xs text-muted-foreground">
           <CreditCard className="h-3 w-3 mr-1" />
           {isPro ? 'Pro' : 'Free'}

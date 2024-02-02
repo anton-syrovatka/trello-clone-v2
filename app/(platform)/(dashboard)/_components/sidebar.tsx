@@ -1,5 +1,3 @@
-/* eslint-disable operator-linebreak */
-
 'use client';
 
 import Link from 'next/link';
@@ -23,8 +21,9 @@ export function Sidebar({ storageKey = 't-sidebar-state' }: SidebarProps) {
     {}
   );
 
-  const { organization: activeOrganization, isLoaded: isLoadedOrg } =
-    useOrganization();
+  const { organization: activeOrganization } = useOrganization();
+  const { isLoaded: isLoadedOrg } = useOrganization();
+
   const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
     userMemberships: {
       infinite: true,

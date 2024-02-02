@@ -30,12 +30,6 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "no-console": "warn",
-    "react/require-default-props": "off",
-    "@typescript-eslint/no-explicit-any": "error",
-    "react/prop-types": "off", // If you're using TypeScript, prop-types are not needed
-    "@typescript-eslint/explicit-module-boundary-types": "off", // Allows you to skip explicit return types in TypeScript
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }], // Only .tsx files for JSX
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -47,14 +41,21 @@
       }
     ],
     "import/no-unresolved": "off", // TypeScript takes care of this
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off", // Allows you to skip explicit return types in TypeScript
+    "jsx-a11y/click-events-have-key-events": "off",
+    "react/require-default-props": "off",
+    "react/prop-types": "off", // If you're using TypeScript, prop-types are not needed
     "react/react-in-jsx-scope": "off", // Not needed in Next.js
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }], // Only .tsx files for JSX
     "react/jsx-props-no-spreading": "off", // Allowing spread props
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "import/prefer-default-export": "off",
     "object-curly-newline":"off",
     "comma-dangle":"off",
-    "no-shadow":"warn"
+    "no-shadow":"off",
+    "no-console": ["error", {"allow": ["warn", "error"]}]
   },
   "settings": {
     "import/resolver": {

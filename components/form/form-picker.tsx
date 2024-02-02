@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 'use client';
 
 import Link from 'next/link';
@@ -8,6 +5,7 @@ import Image from 'next/image';
 import { Check, Loader2 } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { useEffect, useState } from 'react';
+import { Random } from 'unsplash-js/dist/methods/photos/types';
 
 import { cn } from '@/lib/utils';
 import { unsplash } from '@/lib/unsplash';
@@ -23,18 +21,16 @@ interface FormPickerProps {
 export function FormPicker({ id, errors }: FormPickerProps) {
   const { pending } = useFormStatus();
 
-  // eslint-disable-next-line operator-linebreak
-  const [images, setImages] =
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    useState<Array<Record<string, any>>>(defaultImages);
+  const [images, setImages] = useState<Random[]>(defaultImages);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedImageId, setSelectedImageId] = useState(null);
+  const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_UNSPLASH_ENABLED !== 'true') {
       setIsLoading(false);
       return;
     }
+
     (async () => {
       try {
         const result = await unsplash.photos.getRandom({
@@ -43,20 +39,26 @@ export function FormPicker({ id, errors }: FormPickerProps) {
         });
 
         if (result && result.response) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const newImages = result.response as Array<Record<string, any>>;
+          const newImages = result.response as Random[];
           setImages(newImages);
         } else {
           console.error('Failed to get images from Unsplash');
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setImages(defaultImages);
       } finally {
         setIsLoading(false);
       }
     })();
   }, []);
+
+  const onImageClick = (imageId: string, isPending: boolean) => {
+    if (isPending) {
+      return;
+    }
+    setSelectedImageId(imageId);
+  };
 
   if (isLoading) {
     return (
@@ -72,14 +74,13 @@ export function FormPicker({ id, errors }: FormPickerProps) {
         {images.map((image) => (
           <div
             key={image.id}
+            role="button"
+            tabIndex={0}
             className={cn(
               'cursor-pointer relative aspect-video group hover:opacity-75 transition bg-muted',
               pending && 'opacity-50 hover:opacity-50 cursor-auto'
             )}
-            onClick={() => {
-              if (pending) return;
-              setSelectedImageId(image.id);
-            }}
+            onClick={onImageClick.bind(null, image.id, pending)}
           >
             <input
               type="radio"
@@ -105,6 +106,7 @@ export function FormPicker({ id, errors }: FormPickerProps) {
               </div>
             )}
             <Link
+              tabIndex={-1}
               href={image.links.html}
               target="_blank"
               className="opacity-0 group-hover:opacity-100 absolute bottom-0 w-full text-[10px]

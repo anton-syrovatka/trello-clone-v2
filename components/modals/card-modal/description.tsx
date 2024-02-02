@@ -1,12 +1,15 @@
-/* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 'use client';
 
 import { toast } from 'sonner';
 import { AlignLeft } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import { useState, useRef, ElementRef, useLayoutEffect } from 'react';
+import {
+  useState,
+  useRef,
+  ElementRef,
+  useLayoutEffect,
+  KeyboardEventHandler,
+} from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEventListener, useOnClickOutside } from 'usehooks-ts';
 
@@ -39,6 +42,13 @@ export function Description({ data }: Props) {
 
   const enableEditing = () => {
     setIsEditing(true);
+  };
+
+  const onDivKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      enableEditing();
+    }
   };
 
   const disableEditing = () => {
@@ -111,7 +121,9 @@ export function Description({ data }: Props) {
         ) : (
           <div
             onClick={enableEditing}
+            onKeyDown={onDivKeyDown}
             role="button"
+            tabIndex={0}
             className="min-h-[78px] bg-neutral-200 text-sm font-medium py-3 px-3.5 rounded-md"
           >
             {data.description || 'Add a more detailed description...'}

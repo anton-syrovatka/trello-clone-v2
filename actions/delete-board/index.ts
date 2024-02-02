@@ -15,7 +15,6 @@ import { checkSubscription } from '@/lib/subscription';
 import { DeleteBoard } from './schema';
 import { InputType, ReturnType } from './types';
 
-// eslint-disable-next-line consistent-return
 async function handler(data: InputType): Promise<ReturnType> {
   const { userId, orgId } = auth();
 
@@ -55,7 +54,7 @@ async function handler(data: InputType): Promise<ReturnType> {
   }
 
   revalidatePath(`/organization/${orgId}`);
-  redirect(`/organization/${orgId}`);
+  return redirect(`/organization/${orgId}`);
 }
 
 export const deleteBoard = createSafeAction(DeleteBoard, handler);

@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 'use client';
 
 import { Card } from '@prisma/client';
@@ -21,6 +18,7 @@ export function CardItem({ data, index }: Props) {
         <div
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          tabIndex={0}
           ref={provided.innerRef}
           onClick={() => cardModal.onOpen(data.id)}
           role="button"

@@ -1,6 +1,3 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-unsafe-optional-chaining */
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { auth } from '@clerk/nextjs';
 
 import { db } from '@/lib/db';
@@ -30,9 +27,14 @@ export const checkSubscription = async () => {
     return false;
   }
 
-  const isValid =
-    orgSubscription.stripePriceId &&
-    orgSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
+  if (!orgSubscription.stripeCurrentPeriodEnd) {
+    return false;
+  }
+
+  const hasId = orgSubscription.stripePriceId;
+  const subscriptionTime = orgSubscription.stripeCurrentPeriodEnd.getTime()!;
+
+  const isValid = hasId && subscriptionTime + DAY_IN_MS > Date.now();
 
   return !!isValid;
 };

@@ -34,6 +34,6 @@ export async function createAuditLog(props: Props) {
       },
     });
   } catch (error) {
-    console.log('[AUDIT_LOG_ERROR]', error);
+    console.error('[AUDIT_LOG_ERROR]', error);
   }
 }
