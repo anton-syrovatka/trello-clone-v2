@@ -30,6 +30,7 @@ export function Info({ isPro }: Props) {
       <div className="w-[60px] h-[60px] relative">
         <Image
           fill
+          sizes="(max-width: 60px)"
           src={organization.imageUrl}
           alt="Organization"
           className="rounded-md object-cover"

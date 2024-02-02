@@ -76,6 +76,7 @@ export function NavItem({
           <div className="w-7 h-7 relative">
             <Image
               fill
+              sizes="(max-width: 28px)"
               src={organization.imageUrl}
               alt="Organization"
               className="rounded-sm object-cover"
